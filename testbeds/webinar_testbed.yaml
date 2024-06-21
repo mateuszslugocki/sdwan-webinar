@@ -1,0 +1,238 @@
+testbed:
+    name: sdwan-webinar
+
+devices:
+    vmanage:
+      os: iosxe
+      type: router
+      credentials:
+        default:
+          username: admin
+          password: sdwan-webinar-123#
+      connections:
+          defaults:
+            via: ssh
+            class: unicon.Unicon
+          ssh:   
+              protocol: ssh
+              host: vmanage
+              port: 22
+              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null        
+          https:
+              ip: 172.27.217.132
+
+    vsmart:
+      os: iosxe
+      type: router
+      credentials:
+        default:
+          username: admin
+          password: sdwan-webinar-123#
+      connections:
+          defaults:
+            via: ssh
+            class: unicon.Unicon
+          ssh:   
+              protocol: ssh
+              host: vsmart
+              port: 22
+              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+
+    vbond:
+      os: iosxe
+      type: router
+      credentials:
+        default:
+          username: admin
+          password: sdwan-webinar-123#
+      connections:
+          defaults:
+            via: ssh
+            class: unicon.Unicon
+          ssh:   
+              protocol: ssh
+              host: vbond
+              port: 22
+              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null           
+
+    ISP_EDGE_WARSAW:
+      os: iosxe
+      type: router
+      credentials:
+        default:
+          username: admin
+          password: admin
+      connections:
+          defaults:
+            via: ssh
+            class: unicon.Unicon
+          ssh:   
+              protocol: ssh
+              host: ISP_EDGE_WARSAW
+              port: 22
+              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+
+    ISP_EDGE_GDANSK:
+      os: iosxe
+      type: router
+      credentials:
+        default:
+          username: admin
+          password: admin
+      connections:
+          defaults:
+            via: ssh
+            class: unicon.Unicon
+          ssh: 
+              protocol: ssh
+              host: ISP_EDGE_GDANSK
+              port: 22
+              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+
+    ISP_EDGE_CRACOW:
+      os: iosxe
+      type: router
+      credentials:
+        default:
+          username: admin
+          password: admin
+      connections:
+          defaults:
+            via: ssh
+            class: unicon.Unicon
+          ssh:    
+              protocol: ssh
+              host: ISP_EDGE_CRACOW
+              port: 22
+              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    
+
+    WARSAW:
+      os: iosxe
+      type: router
+      credentials:
+        default:
+          username: admin
+          password: admin
+      connections:
+          defaults:
+            via: ssh
+            class: unicon.Unicon
+          ssh:    
+              protocol: ssh
+              host: WARSAW
+              port: 22
+              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    
+
+    WROCLAW:
+      os: iosxe
+      type: router
+      credentials:
+        default:
+          username: admin
+          password: admin
+      connections:
+          defaults:
+            via: ssh
+            class: unicon.Unicon
+          ssh:    
+              protocol: ssh
+              host: WARSAW
+              port: 22
+              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null 
+
+    CRACOW:
+      os: iosxe
+      type: router
+      credentials:
+        default:
+          username: admin
+          password: admin
+      connections:
+          defaults:
+            via: ssh
+            class: unicon.Unicon
+          ssh:    
+              protocol: ssh
+              host: WARSAW
+              port: 22
+              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null                                                                
+                            
+topology:
+    ISP_EDGE_WARSAW:
+        interfaces:
+            Loopback0:
+              type: ethernet
+              ipv4: 99.99.99.99/32          
+            GigabitEthernet1:
+              type: ethernet
+              mgmt: true    
+            GigabitEthernet2:
+                type: ethernet
+                ipv4: 10.10.0.2/30
+                peer: WARSAW
+                simulate_failure: true
+            GigabitEthernet3:
+                type: ethernet
+                ipv4: 10.50.0.10/24  
+
+    ISP_EDGE_GDANSK:
+        interfaces:
+            Loopback0:
+              type: ethernet
+              ipv4: 99.99.99.99/32          
+            GigabitEthernet1:
+              type: ethernet
+              mgmt: true    
+            GigabitEthernet2:
+                type: ethernet
+                ipv4: 10.20.0.2/30
+                peer: GDANSK
+            GigabitEthernet3:
+                type: ethernet
+                ipv4: 10.50.0.20/24 
+
+    ISP_EDGE_CRACOW:
+        interfaces:
+            Loopback0:
+              type: ethernet
+              ipv4: 99.99.99.99/32           
+            GigabitEthernet1:
+              type: ethernet
+              mgmt: true    
+            GigabitEthernet2:
+                type: ethernet
+                ipv4: 10.30.0.2/30
+                peer: CRACOW
+            GigabitEthernet3:
+                type: ethernet
+                ipv4: 10.50.0.30/24             
+
+    WARSAW:
+        interfaces:         
+            GigabitEthernet1:
+              type: ethernet
+              mgmt: true    
+            GigabitEthernet2:
+                type: ethernet
+                ipv4: 10.10.0.1/30
+                peer: ISP_EDGE_WARSAW
+
+    GDANSK:
+        interfaces:         
+            GigabitEthernet1:
+              type: ethernet
+              mgmt: true    
+            GigabitEthernet2:
+                type: ethernet
+                ipv4: 10.10.0.1/30
+                peer: ISP_EDGE_GDANSK
+
+    CRACOW:
+        interfaces:         
+            GigabitEthernet1:
+              type: ethernet
+              mgmt: true    
+            GigabitEthernet2:
+                type: ethernet
+                ipv4: 10.10.0.1/30 
+                peer: ISP_EDGE_CRACOW               
