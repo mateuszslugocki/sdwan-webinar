@@ -59,9 +59,9 @@ class CommonSetup(aetest.CommonSetup):
         self.parent.parameters[MANAGER_SESSION] = manager_session
 
     @aetest.subsection
-    def get_dut(self, testbed: Testbed, site_name: str) -> None:
+    def get_dut(self, testbed: Testbed, device_name: str) -> None:
         get_cedges(testbed)
-        dut = get_device_by_name(testbed, site_name)
+        dut = get_device_by_name(testbed, device_name)
         dut.connect()
         self.parent.parameters[DUT] = dut
 

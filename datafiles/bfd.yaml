@@ -1,4 +1,4 @@
 parameters:
   manager_name: vmanage
-  site_name: WARSAW
-  interface_alias: => ISP
+  device_name: WARSAW
+  interface_description: => ISP
