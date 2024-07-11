@@ -1,9 +1,9 @@
 import logging
 from typing import Any
 
+import retry
 from catalystwan.dataclasses import Device
 from catalystwan.session import ManagerSession
-from retry import retry
 
 logger = logging.getLogger(__name__)
 

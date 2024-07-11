@@ -3,12 +3,12 @@ testbed:
 
 devices:
     vmanage:
-      os: iosxe
-      type: router
+      os: viptela
+      type: vmanage
       credentials:
         default:
-          username: admin
-          password: sdwan-webinar-123#
+          username: sanity
+          password: sanity
       connections:
           defaults:
             via: ssh
@@ -19,15 +19,15 @@ devices:
               port: 22
               ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null        
           https:
-              ip: 172.27.217.132
+              ip: vmanage
 
     vsmart:
-      os: iosxe
-      type: router
+      os: viptela
+      type: vsmart
       credentials:
         default:
           username: admin
-          password: sdwan-webinar-123#
+          password: admin
       connections:
           defaults:
             via: ssh
@@ -39,8 +39,8 @@ devices:
               ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 
     vbond:
-      os: iosxe
-      type: router
+      os: viptela
+      type: vbond
       credentials:
         default:
           username: admin
@@ -109,6 +109,7 @@ devices:
     WARSAW:
       os: iosxe
       type: router
+      platform: sdwan
       credentials:
         default:
           username: admin
@@ -126,6 +127,7 @@ devices:
     WROCLAW:
       os: iosxe
       type: router
+      platform: sdwan
       credentials:
         default:
           username: admin
@@ -143,6 +145,7 @@ devices:
     CRACOW:
       os: iosxe
       type: router
+      platform: sdwan
       credentials:
         default:
           username: admin
@@ -155,17 +158,35 @@ devices:
               protocol: ssh
               host: WARSAW
               port: 22
-              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null                                                                
+              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null                   
+
+    GDANSK:
+      os: iosxe
+      type: router
+      platform: sdwan
+      credentials:
+        default:
+          username: admin
+          password: admin
+      connections:
+          defaults:
+            via: ssh
+            class: unicon.Unicon
+          ssh:    
+              protocol: ssh
+              host: GDANSK
+              port: 22
+              ssh_options: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    
                             
 topology:
     ISP_EDGE_WARSAW:
         interfaces:
             Loopback0:
-              type: ethernet
-              ipv4: 99.99.99.99/32          
+                type: ethernet
+                ipv4: 99.99.99.99/32          
             GigabitEthernet1:
-              type: ethernet
-              mgmt: true    
+                type: ethernet
+                mgmt: true    
             GigabitEthernet2:
                 type: ethernet
                 ipv4: 10.10.0.2/30
@@ -178,11 +199,11 @@ topology:
     ISP_EDGE_GDANSK:
         interfaces:
             Loopback0:
-              type: ethernet
-              ipv4: 99.99.99.99/32          
+                type: ethernet
+                ipv4: 99.99.99.99/32          
             GigabitEthernet1:
-              type: ethernet
-              mgmt: true    
+                type: ethernet
+                mgmt: true    
             GigabitEthernet2:
                 type: ethernet
                 ipv4: 10.20.0.2/30
@@ -194,11 +215,11 @@ topology:
     ISP_EDGE_CRACOW:
         interfaces:
             Loopback0:
-              type: ethernet
-              ipv4: 99.99.99.99/32           
+                type: ethernet
+                ipv4: 99.99.99.99/32           
             GigabitEthernet1:
-              type: ethernet
-              mgmt: true    
+                type: ethernet
+                mgmt: true    
             GigabitEthernet2:
                 type: ethernet
                 ipv4: 10.30.0.2/30
@@ -210,29 +231,29 @@ topology:
     WARSAW:
         interfaces:         
             GigabitEthernet1:
-              type: ethernet
-              mgmt: true    
+                type: ethernet
+                mgmt: true    
             GigabitEthernet2:
                 type: ethernet
                 ipv4: 10.10.0.1/30
-                peer: ISP_EDGE_WARSAW
+                description: => ISP
 
     GDANSK:
         interfaces:         
             GigabitEthernet1:
-              type: ethernet
-              mgmt: true    
+                type: ethernet
+                mgmt: true    
             GigabitEthernet2:
                 type: ethernet
                 ipv4: 10.10.0.1/30
-                peer: ISP_EDGE_GDANSK
+                description: => ISP
 
     CRACOW:
         interfaces:         
             GigabitEthernet1:
-              type: ethernet
-              mgmt: true    
+                type: ethernet
+                mgmt: true    
             GigabitEthernet2:
                 type: ethernet
                 ipv4: 10.10.0.1/30 
-                peer: ISP_EDGE_CRACOW               
+                description: => ISP           

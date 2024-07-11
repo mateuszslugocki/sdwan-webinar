@@ -1,6 +1,7 @@
 import logging
-from typing import Callable, List
+from typing import Callable, List, Optional
 
+from pyats import aetest
 from pyats.topology import Device, Interface, Testbed
 
 from utils.enums import DeviceOS
